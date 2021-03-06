@@ -83,8 +83,6 @@ CLASS zcl_puzzle_fizzbuzz DEFINITION
   PRIVATE SECTION.
 ENDCLASS.
 
-
-
 CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
 
   METHOD fizzbuzz_1.
