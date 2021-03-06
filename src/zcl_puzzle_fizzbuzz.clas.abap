@@ -5,7 +5,8 @@
 "! <li>If a number is evenly divisable by 5, the player instead says 'Buzz'</li>
 "! <li>If a number is evenly divisable by both 3 and five, the player says 'Fizz Buzz'</li></ul>
 "! So, it would start like this:
-"! 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, Fizz Buzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz</p>
+"! 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, Fizz Buzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz
+"! </p>
 "! <h1>As a programming puzzle</h1>
 "! <p>Implementing this in programming as 'Output the first 100 rounds of the FizzBuzz game' is a common
 "! programming puzzle so let's look at a couple of solutions in ABAP</p>
@@ -38,12 +39,15 @@ CLASS zcl_puzzle_fizzbuzz DEFINITION
     "! <li><em>this_turn_output</em> will be set to 15.</li>
     "! <li>Division by 3 is checked and <em>this_turn_output</em> will be changed to 'Fizz'.
     "! <li>Division by 5 is checked and <em>this_turn_output</em> will be changed to 'Buzz'.
-    "! <li>Both division by 3 and division by 5 is checked again and <em>this_turn_output</em> will be set to 'FizzBuzz'.
+    "! <li>Both division by 3 and division by 5 is checked again and <em>this_turn_output</em> will be
+    "! set to 'FizzBuzz'.
     "! </ol>
     "! <h1>ABAP Language Used</h1>
     "! <h2>DO</h2>
-    "! <p>The DO 100 Times statment performs the statements inside the block (down until the ENDDO statement) 100 times.<br>
-    "! The system variable <em>sy-index</em> is set to the number of the current loop pass, so we use that to count from 1 to 100.</p>
+    "! <p>The DO 100 Times statment performs the statements inside the block (down until the ENDDO statement)
+    "! 100 times.<br>
+    "! The system variable <em>sy-index</em> is set to the number of the current loop pass, so we use that to
+    "! count from 1 to 100.</p>
     "! <h2>MOD</h2>
     "! <p>MOD is an arithmetic operator that gives us the remainder of a division. If the remainder is 0, then
     "! the division between the left operand by the right was even</p>
@@ -56,9 +60,10 @@ CLASS zcl_puzzle_fizzbuzz DEFINITION
 
     "! <p class="shorttext synchronized" lang="en">Solution 2</p>
     "! <p>Compared to {@link zcl_puzzle_fizzbuzz.METH:fizzbuzz_1}, this solution only checks each condition once.<br>
-    "! Also, the check for even division by both 3 and 5 is replaced by a check for their lowest common denominator 15.<br>
-    "! By using IF, ELSEIF and ENDIF, as soon as one of the conditions are met, no other calculations of checks are made.
-    "! This also required us to switch the order of the checks to the opposite of the first solution.
+    "! Also, the check for even division by both 3 and 5 is replaced by a check for their lowest common
+    "! denominator 15.<br>
+    "! By using IF, ELSEIF and ENDIF, as soon as one of the conditions are met, no other calculations of checks
+    "! are made. This also required us to switch the order of the checks to the opposite of the first solution.
     METHODS fizzbuzz_2.
 
     "! <p class="shorttext synchronized" lang="en">Solution 3</p>
@@ -67,10 +72,11 @@ CLASS zcl_puzzle_fizzbuzz DEFINITION
     "! <li>We start each pass in the DO block by clearing the <em>this_turn_output</em> variable.</li>
     "! <li>Next we check if the number is evenly divisible by 3 and set <em>this_turn_output</em> to 'Fizz' if so.</li>
     "! <li>Next we check if the number is evenly divisible by 5. If it is we <strong>add</strong> the word 'Buzz' to
-    "! <em>this_turn_output</em>. This means that if the number was NOT evenly divisible by three, we will have 'Buzz' now.
-    "! If, however, it WAS evenly divisible by 3 we would already have 'Fizz' and then adding 'Buzz' gets us 'FizzBuzz'.</li>
-    "! <li>Now instead we need a new comparison the see if we have set anything in the <em>this_turn_output</em>. If we have
-    "! not, then we put the current turn number in there.
+    "! <em>this_turn_output</em>. This means that if the number was NOT evenly divisible by three, we will have
+    "! 'Buzz' now. If, however, it WAS evenly divisible by 3 we would already have 'Fizz' and then adding 'Buzz'
+    "! gets us 'FizzBuzz'.</li>
+    "! <li>Now instead we need a new comparison the see if we have set anything in the <em>this_turn_output</em>.
+    "! If we have not, then we put the current turn number in there.
     "! </ol>
     METHODS fizzbuzz_3.
   PROTECTED SECTION.
