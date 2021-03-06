@@ -149,7 +149,7 @@
         },
         "check_no_handler_pragma": true,
         "line_break_multiple_parameters": true,
-        "prefer_inline": true,
+        "prefer_inline": false,
         "reduce_string_templates": true,
         "sicf_consistency": true,
         "sql_escape_host_variables": true,
