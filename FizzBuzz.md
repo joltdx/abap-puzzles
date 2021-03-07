@@ -12,7 +12,8 @@ So, it would start like this:\
 Implementing this in programming as 'Output the first 100 rounds of the FizzBuzz game' is a common programming puzzle so let's look at a couple of solutions in ABAP.\
 Solutions are in class [src/zcl_puzzle_fizzbuzz.clas.abap](src/zcl_puzzle_fizzbuzz.clas.abap)
 
-## Solution 1
+
+# Solution 1
 ```abap
   METHOD fizzbuzz_1.
     DATA output TYPE string.
@@ -71,7 +72,8 @@ The string template |{ output }\n{ this_turn_output }| is adding a newline \n an
 The demo class cl_demo_output is used to display the output result in a convenient window.\
 This is, I believe, the most convenient way to have the differnt demo solutions run and output data on an on-premise SAP system.
 
-## Solution 2
+
+# Solution 2
 ```abap
   METHOD fizzbuzz_2.
     DATA output TYPE string.
@@ -94,8 +96,13 @@ This is, I believe, the most convenient way to have the differnt demo solutions 
     cl_demo_output=>display( output ).
   ENDMETHOD.
 ```
+Compared to solution 1, this solution only checks each condition once.\
+Also, the check for even division by both 3 and 5 is replaced by a check for their lowest common denominator 15.\
+By using IF, ELSEIF and ENDIF, as soon as one of the conditions are met, no other calculations of checks are made.
+This also required us to switch the order of the checks to the opposite of the first solution.
 
-## Solution 3
+
+# Solution 3
 ```abap
   METHOD fizzbuzz_3.
     DATA output TYPE string.
@@ -122,8 +129,15 @@ This is, I believe, the most convenient way to have the differnt demo solutions 
     cl_demo_output=>display( output ).
   ENDMETHOD.
 ```
+Here's another way of solving this and lowering the number of comparisons.
 
-## Solution 4
+1.We start each pass in the DO block by clearing the this_turn_output variable.
+2.Next we check if the number is evenly divisible by 3 and set this_turn_output to 'Fizz' if so.
+3.Next we check if the number is evenly divisible by 5. If it is we add the word 'Buzz' to this_turn_output. This means that if the number was NOT evenly divisible by three, we will have 'Buzz' now. If, however, it WAS evenly divisible by 3 we would already have 'Fizz' and then adding 'Buzz' gets us 'FizzBuzz'.
+4.Now instead we need a new comparison the see if we have set anything in the this_turn_output. If we have not, then we put the current turn number in there. 
+
+
+# Solution 4
 ```abap
   METHOD fizzbuzz_4.
     DATA turns TYPE STANDARD TABLE OF i WITH EMPTY KEY.
@@ -142,8 +156,19 @@ This is, I believe, the most convenient way to have the differnt demo solutions 
     cl_demo_output=>display( output ).
   ENDMETHOD.
 ```
+Here we start by using DO/ENDDO to create a table containing the number 1-100. Next, we use the VALUE construcor expression to create a new table containing our total output.\
+FOR turn IN turns takes each line in the turns table (number 1-100) and puts it in the new table based according to what we specify inside.\
+The COND conditional expression is determining the new line content based on the current number and the calculations.
+This is basically comparable to the IF/ELSEIF/ELSEIF/ELSE we used in fizzbuzz_2\
 
-## Solution 5
+### Additional ABAP language used
+#### VALUE
+The VALUE operator is a constructor extpression that can create structures or tables 
+#### COND
+A conditional expression with a result based on a logic expression
+
+
+# Solution 5
 ```abap
   METHOD fizzbuzz_5.
     DATA turns TYPE STANDARD TABLE OF i WITH EMPTY KEY.
@@ -170,8 +195,11 @@ This is, I believe, the most convenient way to have the differnt demo solutions 
                      ELSE turn ).
   ENDMETHOD.
 ```
+Let's move the whole COND expression into a method of its own called get_turn_output, taking the turn number as input and returning the desired output for that turn.\
+We call that method in the VALUE expression instead of the COND itself.
 
-## Solution 6
+
+# Solution 6
 ```abap
   METHOD fizzbuzz_6.
     DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
@@ -207,8 +235,22 @@ This is, I believe, the most convenient way to have the differnt demo solutions 
     cl_demo_output=>display( output ).
   ENDMETHOD.
 ```
+Haha, well, in this solution there is again the DO/ENDDO creating a table containing the numbers 1-100 but in the format of strings. Next, to set the Fizz, Buzz and FizzBuzz where relevant, we take a backwards approach and determine beforehand which turns should be changed.\
 
-## Solution 7
+Starting with FizzBuzz we create a range of the values to be replaced by 'FizzBuzz'. This is every fiftenth number. Use of the MODIFY statement will then change the contents of those lines to 'FizzBuzz'.\
+We clear that range and then fill it with every fifth number, and replace those lines with 'Buzz'.\
+And finally we repeat this once more, replacing every third number with 'Fizz'.\
+
+The order is important here as well If we start by replacing every third number, these will no longer be found as matches when comparing for every 15th number, as they will say 'Fizz' instead...
+
+### Additional ABAP language used
+#### INSERT
+Used here to insert lines into an internal table 
+#### MODIFY
+Modifying lines of the internal table
+
+
+# Solution 7
 ```abap
   METHOD fizzbuzz_7.
     DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
@@ -219,8 +261,11 @@ This is, I believe, the most convenient way to have the differnt demo solutions 
     cl_demo_output=>display( output ).
   ENDMETHOD.
 ```
+In solutions 4 and 5, we used DO/ENDDO to first create a table with the numbers 1-100 and then use the VALUE operator. It is possible to do the same kind of solution, without that table, like in this solution.\
+We use the FOR/UNTIL instead of the FOR/IN here and the iteration expression will count up from 1 to 100 for us here, as specified.
 
-## Solution 8
+
+# Solution 8
 ```abap
   METHOD fizzbuzz_8.
     DATA(output) = REDUCE string( INIT out = ||
@@ -230,3 +275,9 @@ This is, I believe, the most convenient way to have the differnt demo solutions 
     cl_demo_output=>display( output ).
   ENDMETHOD.
 ```
+Compared to fizzbuzz_7 where the VALUE operator created a table with the turns, here we use the REDUCE operator to create a string instead.\
+In INIT, we initialize our output variable, the FOR specifies which cases to iterate, and NEXT is adding the output for the current turn to the total output, using the same COND method that we've used before.
+
+### Additional ABAP language used
+#### REDUCE
+The reduction operator REDUCE here helps us convert the table into a single result in form of a string
