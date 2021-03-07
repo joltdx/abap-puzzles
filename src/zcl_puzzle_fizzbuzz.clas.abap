@@ -124,18 +124,18 @@ CLASS zcl_puzzle_fizzbuzz DEFINITION
     METHODS fizzbuzz_6.
 
     "! <p class="shorttext synchronized" lang="en">Solution 7</p>
-    "! In {@link zcl_puzzle_fizzbuzz.METH:fizzbuzz_4} we used DO/ENDDO to first create a table with the numbers 1-100
-    "! and then use the VALUE operator. It is possible to do the same kind of solution, without that table, like in
-    "! this solution.<br>
+    "! In {@link zcl_puzzle_fizzbuzz.METH:fizzbuzz_4} and {@link zcl_puzzle_fizzbuzz.METH:fizzbuzz_5}, we
+    "! used DO/ENDDO to first create a table with the numbers 1-100 and then use the VALUE operator.
+    "! It is possible to do the same kind of solution, without that table, like in this solution.<br>
     "! We use the FOR/UNTIL instead of the FOR/IN here and the iteration expression will count up from 1 to 100 for
     "! us here, as specified.
     METHODS fizzbuzz_7.
 
     "! <p class="shorttext synchronized" lang="en">Solution 8</p>
     "! Compared to {@link zcl_puzzle_fizzbuzz.METH:fizzbuzz_7} where the VALUE operator created a table with the
-    "! turns, here we use the REDUCE operator to create a string instead.<br>.
+    "! turns, here we use the REDUCE operator to create a string instead.<br>
     "! In INIT, we initialize our output variable, the FOR specifies which cases to iterate, and NEXT is adding the
-    "! output for the current turn to the total output, using the same COND as we've used before.
+    "! output for the current turn to the total output, using the same COND method that we've used before.
     "! <h1>Additional ABAP language used</h1>
     "! <h2>REDUCE</h2>
     "! The reduction operator REDUCE here helps us convert the table into a single result in form of a string
