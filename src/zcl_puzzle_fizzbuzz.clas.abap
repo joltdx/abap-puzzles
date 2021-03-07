@@ -3,7 +3,7 @@
 "! The first player starts by saying the number 1 and players then take turn counting upwards one number at a time, but:
 "! <ul><li>If a number is evenly divisable by 3, the player instead says 'Fuzz'</li>
 "! <li>If a number is evenly divisable by 5, the player instead says 'Buzz'</li>
-"! <li>If a number is evenly divisable by both 3 and five, the player says 'Fizz Buzz'</li></ul>
+"! <li>If a number is evenly divisable by both 3 and 5, the player says 'FizzBuzz'</li></ul>
 "! So, it would start like this:
 "! 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, Fizz Buzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz
 "! </p>
@@ -48,6 +48,8 @@ CLASS zcl_puzzle_fizzbuzz DEFINITION
     "! 100 times.<br>
     "! The system variable <em>sy-index</em> is set to the number of the current loop pass, so we use that to
     "! count from 1 to 100.</p>
+    "! <h2>IF</h2>
+    "! Conditional control structure
     "! <h2>MOD</h2>
     "! <p>MOD is an arithmetic operator that gives us the remainder of a division. If the remainder is 0, then
     "! the division between the left operand by the right was even</p>
@@ -79,8 +81,72 @@ CLASS zcl_puzzle_fizzbuzz DEFINITION
     "! If we have not, then we put the current turn number in there.
     "! </ol>
     METHODS fizzbuzz_3.
+
+    "! <p class="shorttext synchronized" lang="en">Solution 4</p>
+    "! Here we start by using DO/ENDDO to create a table containing the number 1-100.
+    "! Next, we use the VALUE construcor expression to create a new table containing our total output.<br>
+    "! FOR turn IN turns takes each line in the turns table (number 1-100) and puts it in the new table based
+    "! according to what we specify inside.<br>
+    "! The COND conditional expression is determining the new line content based on the current number and the
+    "! calculations. This is basically comparable to the IF/ELSEIF/ELSEIF/ELSE we used in
+    "! {@link zcl_puzzle_fizzbuzz.METH:fizzbuzz_2}
+    "! <h1>Additional ABAP language used</h1>
+    "! <h2>VALUE</h2>
+    "! The VALUE operator is a constructor extpression that can create structures or tables
+    "! <h2>COND</h2>
+    "! A conditional expression with a result based on a logic expression
+    METHODS fizzbuzz_4.
+
+    "! <p class="shorttext synchronized" lang="en">Solution 5</p>
+    "! Let's move the whole COND expression into a method of its own called get_turn_output, taking the turn number
+    "! as input and returning the desired output for that turn.<br>
+    "! We call that method in the VALUE expression instead of the COND itself.
+    METHODS fizzbuzz_5.
+
+    "! <p class="shorttext synchronized" lang="en">Solution 6</p>
+    "! Haha, well, in this solution there is again the DO/ENDDO creating a table containing the numbers 1-100 but
+    "! in the format of strings.
+    "! Next, to set the Fizz, Buzz and FizzBuzz where relevant, we take a backwards approach and determine beforehand
+    "! which turns should be changed.<br>
+    "! Starting with FizzBuzz we create a range of the values to be replaced by 'FizzBuzz'. This is every fiftenth
+    "! number. Use of the MODIFY statement will then change the contents of those lines to 'FizzBuzz'.<br>
+    "! We clear that range and then fill it with every fifth number, and replace those lines with 'Buzz'.<br>
+    "! And finally we repeat this once more, replacing every third number with 'Fizz'.<br><br>
+    "! The order is important here, if we start by replacing every third number, these will no longer be found as
+    "! matches when comparing for every 15th number, as they will say 'Fizz' instead.
+    "! <h1>Additional ABAP language used</h1>
+    "! <h2>INSERT</h2>
+    "! Used here to insert lines into an internal table
+    "! <h2>MODIFY</h2>
+    "! Modifying lines of the internal table
+    METHODS fizzbuzz_6.
+
+    "! <p class="shorttext synchronized" lang="en">Solution 7</p>
+    "! In {@link zcl_puzzle_fizzbuzz.METH:fizzbuzz_4} we used DO/ENDDO to first create a table with the numbers 1-100
+    "! and then use the VALUE operator. It is possible to do the same kind of solution, without that table, like in
+    "! this solution.<br>
+    "! We use the FOR/UNTIL instead of the FOR/IN here and the iteration expression will count up from 1 to 100 for
+    "! us here, as specified.
+    METHODS fizzbuzz_7.
+
+    "! <p class="shorttext synchronized" lang="en">Solution 8</p>
+    "! Compared to {@link zcl_puzzle_fizzbuzz.METH:fizzbuzz_7} where the VALUE operator created a table with the
+    "! turns, here we use the REDUCE operator to create a string instead.<br>.
+    "! In INIT, we initialize our output variable, the FOR specifies which cases to iterate, and NEXT is adding the
+    "! output for the current turn to the total output, using the same COND as we've used before.
+    "! <h1>Additional ABAP language used</h1>
+    "! <h2>REDUCE</h2>
+    "! The reduction operator REDUCE here helps us convert the table into a single result in form of a string
+    METHODS fizzbuzz_8.
+
   PROTECTED SECTION.
+
   PRIVATE SECTION.
+    METHODS get_turn_output
+      IMPORTING
+        turn          TYPE i
+      RETURNING
+        VALUE(result) TYPE string.
 ENDCLASS.
 
 CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
@@ -165,6 +231,105 @@ CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
 
     cl_demo_output=>display( output ).
 
+  ENDMETHOD.
+
+  METHOD fizzbuzz_4.
+
+    DATA turns TYPE STANDARD TABLE OF i WITH EMPTY KEY.
+    DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
+
+    DO 100 TIMES.
+      APPEND sy-index TO turns.
+    ENDDO.
+
+    output = VALUE #( FOR turn IN turns
+                      ( COND #( WHEN turn MOD 15 = 0 THEN 'FizzBuzz'
+                                WHEN turn MOD 5 = 0 THEN 'Buzz'
+                                WHEN turn MOD 3 = 0 THEN 'Fizz'
+                                ELSE turn ) ) ).
+
+    cl_demo_output=>display( output ).
+
+  ENDMETHOD.
+
+  METHOD fizzbuzz_5.
+
+    DATA turns TYPE STANDARD TABLE OF i WITH EMPTY KEY.
+    DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
+
+    DO 100 TIMES.
+      APPEND sy-index TO turns.
+    ENDDO.
+
+    output = VALUE #( FOR turn IN turns
+                      ( get_turn_output( turn ) ) ).
+
+    cl_demo_output=>display( output ).
+
+  ENDMETHOD.
+
+  METHOD fizzbuzz_6.
+
+    DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
+    DATA special_cases TYPE RANGE OF string.
+
+    DO 100 TIMES.
+      APPEND |{ sy-index }| TO output.
+    ENDDO.
+
+    DO 100 / 15 TIMES.
+      INSERT VALUE #( sign = 'I'
+                      option = 'EQ'
+                      low = |{ sy-index * 15 }| ) INTO TABLE special_cases.
+    ENDDO.
+    MODIFY output FROM |FizzBuzz| TRANSPORTING table_line WHERE table_line IN special_cases.
+
+    CLEAR special_cases[].
+    DO 100 / 5 TIMES.
+      INSERT VALUE #( sign = 'I'
+                      option = 'EQ'
+                      low = |{ sy-index * 5 }| ) INTO TABLE special_cases.
+    ENDDO.
+    MODIFY output FROM |Buzz| TRANSPORTING table_line WHERE table_line IN special_cases.
+
+    CLEAR special_cases[].
+    DO 100 / 3 TIMES.
+      INSERT VALUE #( sign = 'I'
+                      option = 'EQ'
+                      low = |{ sy-index * 3 }| ) INTO TABLE special_cases.
+    ENDDO.
+    MODIFY output FROM |Fizz| TRANSPORTING table_line WHERE table_line IN special_cases.
+
+    cl_demo_output=>display( output ).
+
+  ENDMETHOD.
+
+  METHOD fizzbuzz_7.
+
+    DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
+
+    output = VALUE #( FOR turn = 1 UNTIL turn > 100
+                      ( get_turn_output( turn ) ) ).
+
+    cl_demo_output=>display( output ).
+
+  ENDMETHOD.
+
+  METHOD fizzbuzz_8.
+
+    DATA(output) = REDUCE string( INIT out = ||
+                                  FOR turn = 1 UNTIL turn > 100
+                                  NEXT out = |{ out }{ get_turn_output( turn ) }\n| ).
+
+    cl_demo_output=>display( output ).
+
+  ENDMETHOD.
+
+  METHOD get_turn_output.
+    result = COND #( WHEN turn MOD 15 = 0 THEN |FizzBuzz|
+                     WHEN turn MOD 5 = 0 THEN |Buzz|
+                     WHEN turn MOD 3 = 0 THEN |Fizz|
+                     ELSE turn ).
   ENDMETHOD.
 
 ENDCLASS.
