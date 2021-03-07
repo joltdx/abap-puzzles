@@ -57,7 +57,9 @@ CLASS zcl_puzzle_fizzbuzz DEFINITION
     "! <p>The string template &#124;&#123; output &#125;\n&#123; this_turn_output &#125;&#124; is adding a
     "! newline \n and the <em>this_turn_output</em> to the total output variable</p>
     "! <h2>cl_demo_output</h2>
-    "! <p>The demo class cl_demo_output is used to display the output result in a convenient window.</p>
+    "! <p>The demo class cl_demo_output is used to display the output result in a convenient window.<br>
+    "! This is, I believe, the most convenient way to have the differnt demo solutions easily run and output
+    "! data on an on-premise SAP system.</p>
     METHODS fizzbuzz_1.
 
     "! <p class="shorttext synchronized" lang="en">Solution 2</p>
@@ -152,7 +154,6 @@ ENDCLASS.
 CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
 
   METHOD fizzbuzz_1.
-
     DATA output TYPE string.
     DATA this_turn_output TYPE string.
 
@@ -173,20 +174,16 @@ CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
       ENDIF.
 
       output = |{ output }\n{ this_turn_output }|.
-
     ENDDO.
 
     cl_demo_output=>display( output ).
-
   ENDMETHOD.
 
   METHOD fizzbuzz_2.
-
     DATA output TYPE string.
     DATA this_turn_output TYPE string.
 
     DO 100 TIMES.
-
       IF sy-index MOD 15 = 0.
         this_turn_output = 'FizzBuzz'.
       ELSEIF sy-index MOD 3 = 0.
@@ -198,15 +195,12 @@ CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
       ENDIF.
 
       output = |{ output }\n{ this_turn_output }|.
-
     ENDDO.
 
     cl_demo_output=>display( output ).
-
   ENDMETHOD.
 
   METHOD fizzbuzz_3.
-
     DATA output TYPE string.
     DATA this_turn_output TYPE string.
 
@@ -226,15 +220,12 @@ CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
       ENDIF.
 
       output = |{ output }\n{ this_turn_output }|.
-
     ENDDO.
 
     cl_demo_output=>display( output ).
-
   ENDMETHOD.
 
   METHOD fizzbuzz_4.
-
     DATA turns TYPE STANDARD TABLE OF i WITH EMPTY KEY.
     DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
 
@@ -249,11 +240,9 @@ CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
                                 ELSE turn ) ) ).
 
     cl_demo_output=>display( output ).
-
   ENDMETHOD.
 
   METHOD fizzbuzz_5.
-
     DATA turns TYPE STANDARD TABLE OF i WITH EMPTY KEY.
     DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
 
@@ -265,11 +254,9 @@ CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
                       ( get_turn_output( turn ) ) ).
 
     cl_demo_output=>display( output ).
-
   ENDMETHOD.
 
   METHOD fizzbuzz_6.
-
     DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
     DATA special_cases TYPE RANGE OF string.
 
@@ -301,28 +288,23 @@ CLASS zcl_puzzle_fizzbuzz IMPLEMENTATION.
     MODIFY output FROM |Fizz| TRANSPORTING table_line WHERE table_line IN special_cases.
 
     cl_demo_output=>display( output ).
-
   ENDMETHOD.
 
   METHOD fizzbuzz_7.
-
     DATA output TYPE STANDARD TABLE OF string WITH EMPTY KEY.
 
     output = VALUE #( FOR turn = 1 UNTIL turn > 100
                       ( get_turn_output( turn ) ) ).
 
     cl_demo_output=>display( output ).
-
   ENDMETHOD.
 
   METHOD fizzbuzz_8.
-
     DATA(output) = REDUCE string( INIT out = ||
                                   FOR turn = 1 UNTIL turn > 100
                                   NEXT out = |{ out }{ get_turn_output( turn ) }\n| ).
 
     cl_demo_output=>display( output ).
-
   ENDMETHOD.
 
   METHOD get_turn_output.
