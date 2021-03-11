@@ -3,7 +3,7 @@ Programming puzzles and challenges, with example solutions in ABAP
 
 My intention here is to demonstrate different ways of solving these puzzles and challenges in ABAP, using the many aspects of the ABAP language, while giving some ideas on how to solve <em>real</em> problems in ABAP. :)
 
-Hopefully I will be able to shed som light om similarities and differences of ABAP approaches, and maybe even the odds and ends of the ABAP language. 
+Hopefully I will be able to shed some light om similarities and differences of ABAP approaches, and maybe even the odds and ends of the ABAP language. 
 
 This page contains explanations of the different puzzles/challanges with links to example solutions and explanations. If you want to try for yourself before seing any example solutions first, then stay in this file. 
 
@@ -11,9 +11,9 @@ This page contains explanations of the different puzzles/challanges with links t
 If you want me to attack a certain puzzle or challenge, please let me know by issue, email, telnet or fax, whichever is most convenient for you. And please also share additional solutions and comments!
 
 ## FizzBuzz
-Fizz Buzz is alledgedly originally a childrens game to practice division, with some simple rules.\
+Fizz Buzz is allegedly originally a childrens game to practice division, with some simple rules.\
 The first player starts by saying the number 1 and players then take turn counting upwards one number at a time, but: 
-* If a number is evenly divisable by 3, the player instead says 'Fuzz'
+* If a number is evenly divisable by 3, the player instead says 'Fizz'
 * If a number is evenly divisable by 5, the player instead says 'Buzz'
 * If a number is evenly divisable by both 3 and 5, the player says 'FizzBuzz'
 
