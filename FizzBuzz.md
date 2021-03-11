@@ -1,7 +1,7 @@
 # FizzBuzz
-Fizz Buzz is alledgedly originally a childrens game to practice division, with some simple rules.\
+Fizz Buzz is allededly originally a childrens game to practice division, with some simple rules.\
 The first player starts by saying the number 1 and players then take turn counting upwards one number at a time, but: 
-* If a number is evenly divisable by 3, the player instead says 'Fuzz'
+* If a number is evenly divisable by 3, the player instead says 'Fizz'
 * If a number is evenly divisable by 5, the player instead says 'Buzz'
 * If a number is evenly divisable by both 3 and 5, the player says 'FizzBuzz'
 
