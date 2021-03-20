@@ -150,7 +150,6 @@ CLASS zcl_puzzle_narcissistic_number IMPLEMENTATION.
 
   METHOD get_sum_of_powers_3.
     DATA rest TYPE i.
-    DATA remainder TYPE i.
     DATA digits TYPE STANDARD TABLE OF i WITH EMPTY KEY.
 
     rest = number.
