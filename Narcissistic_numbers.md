@@ -12,9 +12,6 @@ These are, for reference 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 153, 370, 371, 407, 1634,
 Solution examples are in class [src/zcl_puzzle_narcissistic_number.clas.abap](src/zcl_puzzle_narcissistic_number.clas.abap)
 
 
-Have fun!
-
-
 # Solution 1
 ```abap
   METHOD get_sum_of_powers_1.
