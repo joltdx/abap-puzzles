@@ -23,3 +23,15 @@ So, it would start like this:\
 The challenge here is to implement this in ABAP to output the first 100 rounds of the FizzBuzz game.
 
 [Example solutions and explanations to FizzBuzz](https://github.com/joltdx/abap-puzzles/blob/main/FizzBuzz.md)
+
+## Narcissistic numbers, or Arnold numbers
+In number theory, a narcissistic number is a number where the sum of each of its digits raised to the power of the total number of digits equals the number itself.\
+This is the case for instance for the number 153. It has 3 digits, so when each digit is raised to the power 3, then the sum equals 153.\
+1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153\
+
+Narcissistic number are also known as Armstrong numbers or plus perfect numbers
+
+The task is to implement a program that lists all narcissistic numbers with 5 or less digits, i.e. between 0 and 99999.\
+These are, for reference 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 153, 370, 371, 407, 1634, 8208, 9474, 54748, 92727 and 93084\
+
+[Example solutions and explanations to Narcissistic numbers](Narcissistic_numbers.md)
