@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_PUZZLE_NARCISSISTIC_NUMBER</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>ABAP Puzzles: Narcissistic numbers (Armstrong numbers)</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_PUZZLE_NARCISSISTIC_NUMBER</CLSNAME>
+     <CMPNAME>SOLUTION_1</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Solution 1</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_PUZZLE_NARCISSISTIC_NUMBER</CLSNAME>
+     <CMPNAME>SOLUTION_2</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Solution 2</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_PUZZLE_NARCISSISTIC_NUMBER</CLSNAME>
+     <CMPNAME>SOLUTION_3</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Solution 3</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
