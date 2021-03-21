@@ -93,3 +93,7 @@ We use division by 10 here and using the modulo, the remainder, as the digit to 
 While there is still value in the integer part, there are still digits, and we keep going.
 
 When done, we have the number of lines in the table as the number of digits in the number, and we can loop the table to calculate each digits power and add to a total sum
+
+
+# Additional solutions
+A solution that is storing the powers of digits in internal tables and using dynamic read statements to get them is shared in [this repository](https://github.com/faroshtaha/narcissistic_numbers_abap/blob/main/ZTEST_TF_NARC_NUMBERS.clas.abap)
