@@ -97,3 +97,35 @@ When done, we have the number of lines in the table as the number of digits in t
 
 # Additional solutions
 A solution that is storing the powers of digits in internal tables and using dynamic read statements to get them is shared in [this repository](https://github.com/faroshtaha/narcissistic_numbers_abap/blob/main/ZTEST_TF_NARC_NUMBERS.clas.abap)
+
+# Simple ABAP report
+```abap
+PARAMETERS p_max TYPE i DEFAULT 100000.
+
+START-OF-SELECTION.
+  DATA number TYPE i.
+  DATA sum TYPE i.
+
+  WRITE / number.
+  DO p_max TIMES.
+    number = number + 1.
+    PERFORM narcisstic_sum USING number CHANGING sum.
+    IF number = sum.
+      WRITE :/ number.
+    ENDIF.
+  ENDDO.
+
+FORM narcisstic_sum USING number TYPE i
+                    CHANGING sum TYPE i.
+  DATA rest TYPE p.
+  DATA(number_of_digits) = trunc( log10( number ) + 1 ).
+  
+  sum = 0.
+  rest = number.
+  DO number_of_digits TIMES.
+    sum = sum + ipow( base = rest MOD 10 exp = number_of_digits ).
+    rest = rest DIV 10.
+  ENDDO.
+ENDFORM.
+```
+
