@@ -98,6 +98,8 @@ When done, we have the number of lines in the table as the number of digits in t
 # Additional solutions
 A solution that is storing the powers of digits in internal tables and using dynamic read statements to get them is shared in [this repository](https://github.com/faroshtaha/narcissistic_numbers_abap/blob/main/ZTEST_TF_NARC_NUMBERS.clas.abap)
 
+Based on the VALUE and REDUCE constructor operators, [this repository](https://github.com/suynwa/ABAP-Puzzles) contains neat solution
+
 # Simple ABAP report
 ```abap
 PARAMETERS p_max TYPE i DEFAULT 100000.
