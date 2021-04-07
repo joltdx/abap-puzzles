@@ -100,6 +100,8 @@ A solution that is storing the powers of digits in internal tables and using dyn
 
 Based on the VALUE and REDUCE constructor operators, [this repository](https://github.com/suynwa/ABAP-Puzzles) contains neat solution
 
+A solution with immutable data and recursion was presented [here](https://gist.github.com/pokrakam/fc0bc3623a97bbfe71e33a7d1918511b)
+
 # Simple ABAP report
 ```abap
 PARAMETERS p_max TYPE i DEFAULT 100000.
