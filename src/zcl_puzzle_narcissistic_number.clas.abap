@@ -159,7 +159,7 @@ CLASS zcl_puzzle_narcissistic_number IMPLEMENTATION.
 
     DO 100000 TIMES.
       number = sy-index - 1.
-      IF get_sum_of_powers_4( number ) = number.
+      IF get_sum_of_powers_5( number ) = number.
         output = |{ output }{ number }\n|.
       ENDIF.
     ENDDO.
@@ -173,7 +173,7 @@ CLASS zcl_puzzle_narcissistic_number IMPLEMENTATION.
 
     DO 100000 TIMES.
       number = sy-index - 1.
-      IF get_sum_of_powers_4( number ) = number.
+      IF get_sum_of_powers_6( number ) = number.
         output = |{ output }{ number }\n|.
       ENDIF.
     ENDDO.
@@ -187,7 +187,7 @@ CLASS zcl_puzzle_narcissistic_number IMPLEMENTATION.
 
     DO 100000 TIMES.
       number = sy-index - 1.
-      IF get_sum_of_powers_4( number ) = number.
+      IF get_sum_of_powers_7( number ) = number.
         output = |{ output }{ number }\n|.
       ENDIF.
     ENDDO.
