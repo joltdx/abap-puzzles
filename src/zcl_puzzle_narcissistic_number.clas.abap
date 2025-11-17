@@ -52,6 +52,10 @@ CLASS zcl_puzzle_narcissistic_number DEFINITION
     "! When done, we have the number of lines in the table as the number of digits in the number, and we can loop the
     "! table to calculate each digits power and add to a total sum
     METHODS solution_3.
+    METHODS solution_4.
+    METHODS solution_5.
+    METHODS solution_6.
+    METHODS solution_7.
   PROTECTED SECTION.
   PRIVATE SECTION.
     METHODS get_sum_of_powers_1
@@ -69,6 +73,26 @@ CLASS zcl_puzzle_narcissistic_number DEFINITION
         number        TYPE i
       RETURNING
         VALUE(result) TYPE i.
+    METHODS get_sum_of_powers_4
+      IMPORTING
+        i_num           TYPE i
+      RETURNING
+        value(r_result) TYPE i.
+    METHODS get_sum_of_powers_5
+      IMPORTING
+        i_num           TYPE i
+      RETURNING
+        value(r_result) TYPE i.
+    METHODS get_sum_of_powers_6
+      IMPORTING
+        i_num           TYPE i
+      RETURNING
+        value(r_result) TYPE i.
+    METHODS get_sum_of_powers_7
+      IMPORTING
+        i_num           TYPE i
+      RETURNING
+        value(r_result) TYPE i.
 ENDCLASS.
 
 CLASS zcl_puzzle_narcissistic_number IMPLEMENTATION.
@@ -108,6 +132,62 @@ CLASS zcl_puzzle_narcissistic_number IMPLEMENTATION.
     DO 100000 TIMES.
       number = sy-index - 1.
       IF get_sum_of_powers_3( number ) = number.
+        output = |{ output }{ number }\n|.
+      ENDIF.
+    ENDDO.
+
+    cl_demo_output=>display( output ).
+  ENDMETHOD.
+
+  METHOD solution_4.
+    DATA output TYPE string.
+    DATA number type i.
+
+    DO 100000 TIMES.
+      number = sy-index - 1.
+      IF get_sum_of_powers_4( number ) = number.
+        output = |{ output }{ number }\n|.
+      ENDIF.
+    ENDDO.
+
+    cl_demo_output=>display( output ).
+  ENDMETHOD.
+
+  METHOD solution_5.
+    DATA output TYPE string.
+    DATA number type i.
+
+    DO 100000 TIMES.
+      number = sy-index - 1.
+      IF get_sum_of_powers_5( number ) = number.
+        output = |{ output }{ number }\n|.
+      ENDIF.
+    ENDDO.
+
+    cl_demo_output=>display( output ).
+  ENDMETHOD.
+
+  METHOD solution_6.
+    DATA output TYPE string.
+    DATA number type i.
+
+    DO 100000 TIMES.
+      number = sy-index - 1.
+      IF get_sum_of_powers_6( number ) = number.
+        output = |{ output }{ number }\n|.
+      ENDIF.
+    ENDDO.
+
+    cl_demo_output=>display( output ).
+  ENDMETHOD.
+
+  METHOD solution_7.
+    DATA output TYPE string.
+    DATA number type i.
+
+    DO 100000 TIMES.
+      number = sy-index - 1.
+      IF get_sum_of_powers_7( number ) = number.
         output = |{ output }{ number }\n|.
       ENDIF.
     ENDDO.
@@ -165,6 +245,70 @@ CLASS zcl_puzzle_narcissistic_number IMPLEMENTATION.
     LOOP AT digits INTO DATA(digit).
       result = result + ( digit ** number_of_digits ).
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD get_sum_of_powers_4.
+
+    ASSERT i_num GE 0.
+
+    DATA(string) = condense( CONV string( i_num ) ).
+
+    DATA(strl) = strlen( string ).
+
+    DO strl TIMES.
+
+      DATA(id) = sy-index - 1.
+
+      r_result += ( string+id(1) ) ** strl.
+
+    ENDDO.
+
+  ENDMETHOD.
+
+  METHOD get_sum_of_powers_5.
+
+    ASSERT i_num GE 0.
+
+    DATA(string) = condense( CONV string( i_num ) ).
+
+    DATA(strl) = strlen( string ).
+
+
+
+    r_result = REDUCE i(
+      INIT ret = 0
+      FOR i = 0 WHILE i < strl
+      NEXT ret += ( string+i(1) ) ** strl
+    ).
+
+  ENDMETHOD.
+
+  METHOD get_sum_of_powers_6.
+
+    ASSERT i_num GE 0.
+
+    r_result = REDUCE i(
+      LET string = condense( CONV string( i_num ) )
+          strl = strlen( string )
+      IN INIT ret = 0
+      FOR i = 0 WHILE i < strl
+      NEXT ret += ( string+i(1) ) ** strl
+    ).
+
+  ENDMETHOD.
+
+  METHOD get_sum_of_powers_7.
+
+    ASSERT i_num GE 0.
+
+    RETURN REDUCE i(
+      LET string = condense( CONV string( i_num ) )
+          strl = strlen( string )
+      IN INIT ret = 0
+      FOR i = 0 WHILE i < strl
+      NEXT ret += ( string+i(1) ) ** strl
+    ).
+
   ENDMETHOD.
 
 ENDCLASS.
